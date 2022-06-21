@@ -1,5 +1,5 @@
 <template>
-    <form class="create">
+    <form v-if="!loader" @submit.prevent="submitData" class="create">
         <div class="create-elements">
             <Input
                 v-for="input in inputsRender.data"
@@ -34,17 +34,26 @@
                 @change="validParams"
             />
         </div>
+        <select v-model="select" class="create-elements__select">
+            <option value="note">Заметка</option>
+            <option value="post">Пост</option>
+        </select>
         <button :disabled="!submit" class="create-btn" type="submit">Создать пост</button>
     </form>
+    <Loader v-else/>
 </template>
 
 <script>
-import {createControls, validControls, submitForm} from '../form/formLibruary'
-import Input from './elements/Input.vue'
-import Textarea from './elements/Textarea.vue'
+import {createControls, validControls, submitForm, createData, cleanControls} from '../form/formLibruary'
+import {api} from '../services/services'
+import Input from './elementsUI/Input.vue'
+import Textarea from './elementsUI/Textarea.vue'
+import Loader from '../components/Loader.vue'
     export default {
         data(){
             return {
+                loader:false,
+                select:'note',
                 isSubmit:false,
                 controls:{
                     inputsElems:{
@@ -80,6 +89,22 @@ import Textarea from './elements/Textarea.vue'
                 control.isTouch = true
                 control.isValid = validControls(control.value, control.validators)
             },
+
+            async submitData(){
+                let data = {
+                    ...createData(this.controls),
+                    selectOption: this.select
+                }
+                try {
+                    this.loader = true
+                    await api.postRequest(data)
+                    this.loader = false
+                    cleanControls(this.controls)
+                } 
+                catch (err) {
+                    console.warn(err)
+                }
+            }
         },
         computed:{
             inputsRender(){
@@ -94,7 +119,8 @@ import Textarea from './elements/Textarea.vue'
         },
         components:{
             Input,
-            Textarea
+            Textarea,
+            Loader
         },
     }
 </script>
@@ -117,6 +143,19 @@ import Textarea from './elements/Textarea.vue'
             border: none;
             opacity: .4;
             cursor:no-drop;
+        }
+    }
+    .create-elements__select{
+        color: #000;
+        background-color: #fff;
+        margin-top: 20px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        & option{
+            color: black;
         }
     }
 </style>

@@ -8,6 +8,28 @@ export function createControls(objectControl,validators){
         errMessage:'Введите данные корректно'
     }
 }
+
+export function createData (controlsData) {
+    let data = {}
+    Object.keys(controlsData).forEach(value => {
+        const controls = controlsData[value].data
+        controls.forEach(control => {
+            let nameData = controlsData[value].mapName + `_${control.id}`
+            data[nameData] = control.controlInputs.value
+        })
+    })
+    return data
+}
+export function cleanControls (controlsData) {
+    Object.keys(controlsData).forEach(value => {
+        controlsData[value].data.forEach(elem => {
+            elem.controlInputs.value = ''
+            elem.controlInputs.isValid = false
+            elem.controlInputs.isTouch = false
+        })
+    })
+}
+
 // Функция validControls используется для проверки вводимых значений пользователем,
 // где rulesValid правила по которым проверяются вводимые значения, возвращаемое значение - Boolean
 export function validControls(value, rulesValid = null){ 
@@ -23,7 +45,6 @@ export function validControls(value, rulesValid = null){
 // Функция submitForm используется для того,чтобы разрешить пользователю отправить валидные данные,
 // Возвращаемое значение - Boolean 
 export function submitForm(controlsData){
-    console.log(controlsData);
     let submit = true
 
     for (let prop in controlsData){
