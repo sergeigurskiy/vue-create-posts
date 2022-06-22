@@ -5,10 +5,9 @@ export function createControls(objectControl,validators){
         validators,
         value:'',
         isTouch:false,
-        errMessage:'Введите данные корректно'
     }
 }
-
+// Функция createData собирает валидные данные которые ввел пользователь, и готовит их для отправки
 export function createData (controlsData) {
     let data = {}
     Object.keys(controlsData).forEach(value => {
@@ -20,12 +19,11 @@ export function createData (controlsData) {
     })
     return data
 }
+// Функция cleanControls очищает все значения введенные пользователем при валидной форме
 export function cleanControls (controlsData) {
     Object.keys(controlsData).forEach(value => {
         controlsData[value].data.forEach(elem => {
-            elem.controlInputs.value = ''
-            elem.controlInputs.isValid = false
-            elem.controlInputs.isTouch = false
+            elem.controlInputs = {...elem.controlInputs, value:'', isTouch:false, isValid:false}
         })
     })
 }

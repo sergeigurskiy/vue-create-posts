@@ -16,4 +16,4 @@ class Api {
     }
 }
 
-export const api = new Api (createUrl('https://vueposter-default-rtdb.firebaseio.com/'))
+export const api = new Api (createUrl('https://vueposter-default-rtdb.firebaseio.com'))

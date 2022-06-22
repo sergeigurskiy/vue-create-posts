@@ -1,4 +1,5 @@
 <template>
+    <Popup :isPopup="isPopup" txt='Пост создан, зайдите в раздел "Посты", чтобы просмотреть.'/>
     <form v-if="!loader" @submit.prevent="submitData" class="create">
         <div class="create-elements">
             <Input
@@ -49,9 +50,11 @@ import {api} from '../services/services'
 import Input from './elementsUI/Input.vue'
 import Textarea from './elementsUI/Textarea.vue'
 import Loader from '../components/Loader.vue'
+import Popup from './elementsUI/Popup.vue'
     export default {
         data(){
             return {
+                isPopup:false,
                 loader:false,
                 select:'note',
                 isSubmit:false,
@@ -64,6 +67,7 @@ import Loader from '../components/Loader.vue'
                                 placeholder:'Название',
                                 idLabel:'el_input',
                                 class:'create-elements__input',
+                                errMessage:'Некорректный ввод, следует ввести не менее 3 символов'
                             }, {required:true})},
                         ],
                         mapName:'inputsElems'
@@ -76,6 +80,7 @@ import Loader from '../components/Loader.vue'
                                 placeholder:'Текст',
                                 idLabel:'el_textarea',
                                 class:'create-elements__textarea',
+                                errMessage:'Некорректный ввод, следует ввести не менее 7 символов'
                             },{maxLength:6})},
                         ],
                         mapName:'textareaElems'
@@ -100,6 +105,10 @@ import Loader from '../components/Loader.vue'
                     await api.postRequest(data)
                     this.loader = false
                     cleanControls(this.controls)
+                    this.isPopup = true
+                    setTimeout(() => {
+                        this.isPopup = false
+                    }, 2000)
                 } 
                 catch (err) {
                     console.warn(err)
@@ -120,7 +129,8 @@ import Loader from '../components/Loader.vue'
         components:{
             Input,
             Textarea,
-            Loader
+            Loader,
+            Popup
         },
     }
 </script>
