@@ -5,7 +5,7 @@
         <div class="poster-tabs">
           <ul class="poster-tabs-list">
             <li class="poster-tabs-list__link"><router-link to="/create" class="poster-tabs-list__item">Создать</router-link></li>
-            <li class="poster-tabs-list__link"><a class="poster-tabs-list__item" href="#">Посты</a></li>
+            <li class="poster-tabs-list__link"><router-link to="/posts" class="poster-tabs-list__item">Посты</router-link></li>
             <li class="poster-tabs-list__link"><a class="poster-tabs-list__item" href="#">Избранное</a></li>
           </ul>
           <div class="poster-content">

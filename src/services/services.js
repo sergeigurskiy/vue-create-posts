@@ -5,15 +5,28 @@ class Api {
         this.instance = instance
     }
 
-    async postRequest (body) {
+    async getRequest () {
         try {
-            const {data} = await this.instance.post('/posts.json', body)
-            return data
+            return response(this.instance.get('/posts.json'))
         }
         catch (err) {
             console.warn(err);
         }
     }
+
+    async postRequest (body) {
+        try {
+            return response(this.instance.post('/posts.json', body))
+        }
+        catch (err) {
+            console.warn(err);
+        }
+    }
+}
+
+async function response (reqData) {
+    const {data} = await reqData
+    return data
 }
 
 export const api = new Api (createUrl('https://vueposter-default-rtdb.firebaseio.com'))

@@ -106,9 +106,7 @@ import Popup from './elementsUI/Popup.vue'
                     this.loader = false
                     cleanControls(this.controls)
                     this.isPopup = true
-                    setTimeout(() => {
-                        this.isPopup = false
-                    }, 2000)
+                    window.setTimeout(() => this.isPopup = !this.isPopup, 1500)
                 } 
                 catch (err) {
                     console.warn(err)
@@ -124,7 +122,7 @@ import Popup from './elementsUI/Popup.vue'
             },
             submit(){
                 return this.isSubmit = submitForm(this.controls)
-            }
+            },
         },
         components:{
             Input,
