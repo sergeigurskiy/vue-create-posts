@@ -98,7 +98,8 @@ import Popup from './elementsUI/Popup.vue'
             async submitData(){
                 let data = {
                     ...createData(this.controls),
-                    selectOption: this.select
+                    selectOption: this.select,
+                    saveStorage:false
                 }
                 try {
                     this.loader = true

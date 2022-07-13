@@ -12,11 +12,19 @@
 
 <style lang="scss" scoped>
     .loader{
-        height: 321.8px;
+        height: 350px;
         display: flex;
         width: 100%;
         justify-content: center;
         align-items: center;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #191828;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 100;
         & span {
             display: block;
             width: 30px;

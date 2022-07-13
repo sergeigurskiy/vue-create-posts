@@ -22,6 +22,14 @@ class Api {
             console.warn(err);
         }
     }
+    async deletePost (id) {
+        try {
+            return response(this.instance.delete(`/posts/${id}.json`))
+        }
+        catch (err) {
+            console.warn(err);
+        }
+    }
 }
 
 async function response (reqData) {

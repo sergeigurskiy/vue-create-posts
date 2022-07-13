@@ -10,3 +10,6 @@ export function transformData(data){
         return false
     }
 }
+export function unincludeId(props, id){
+    return props.filter(elem => elem.id !== id)
+}
