@@ -5,19 +5,12 @@
             v-for="obj in dataBase"
             :key="obj.id"
         >
-            <div class="posts__item">
-                <div class="posts__item-title">
-                    {{obj.inputsElems_1}}
-                </div>
-                <div class="posts__item-desc">
-                    {{obj.textareaElems_1}}
-                </div>
-                <div class="posts__item-type" :class="[obj.selectOption === 'note' ? 'note' : 'post']">{{obj.selectOption}}</div>
-                <div class="posts-btns">
-                    <button @click="saveBtnHandler(obj.id)" class="posts__item-btn" :class="[obj.saveStorage ? 'success' : '']">{{obj.saveStorage ? 'Cохранено' : 'Сохранить'}}</button>
-                    <button @click="deleteBtnHandler(obj.id)" class="posts__item-btn delete">Удалить</button>
-                </div>
-            </div>
+            <Card
+                :obj="obj"
+                @saveBtnHandler="saveBtnHandler"
+                @deleteBtnHandler="deleteBtnHandler"
+                btns
+            />
         </div>
     </div>
     <div v-else class="posts__empty">На данный момент не было создано ни одного поста.</div>
@@ -28,6 +21,7 @@ import {api} from '../services/services'
 import {transformData, unincludeId} from '../helpers/transforms'
 import {storageGenerate, getStorage, setStorage} from '../helpers/storage'
 import Loader from '../components/Loader.vue'
+import Card from '../components/elementsUI/Card.vue'
     export default {
         data(){
             return {
@@ -75,12 +69,13 @@ import Loader from '../components/Loader.vue'
             }
         },
         components:{
-            Loader
+            Loader,
+            Card
         }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .posts{
         display: flex;
         flex-wrap: wrap;
@@ -106,6 +101,7 @@ import Loader from '../components/Loader.vue'
                 text-transform: uppercase;
                 letter-spacing: 1.2px;
                 margin-bottom: 20px;
+                max-width: 100px;
             }
             &-desc{
                 flex: 1 1 auto;

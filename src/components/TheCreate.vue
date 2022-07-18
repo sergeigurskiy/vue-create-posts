@@ -57,7 +57,6 @@ import Popup from './elementsUI/Popup.vue'
                 isPopup:false,
                 loader:false,
                 select:'note',
-                isSubmit:false,
                 controls:{
                     inputsElems:{
                         data:[
@@ -122,7 +121,7 @@ import Popup from './elementsUI/Popup.vue'
                 return this.controls.textareaElems
             },
             submit(){
-                return this.isSubmit = submitForm(this.controls)
+                return submitForm(this.controls)
             },
         },
         components:{
