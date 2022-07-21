@@ -101,7 +101,7 @@ import Card from '../components/elementsUI/Card.vue'
                 text-transform: uppercase;
                 letter-spacing: 1.2px;
                 margin-bottom: 20px;
-                max-width: 100px;
+                max-width: 200px;
             }
             &-desc{
                 flex: 1 1 auto;
